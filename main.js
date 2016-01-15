@@ -108,8 +108,8 @@ function read(a)
         html+="<a target='_blank' href='"+a+"'>"+a+"</a><br>";
     html+="<b>"+htmlEntities(a)+"</b><br><br>";
     document.getElementById("result").innerHTML=html;
-    
-	var dataString = { send : true , credential : htmlEntities(a) };
+    document.getElementById("member-profile").innerHTML="Code scanned, reading database...";
+	var dataString = { send : true , id : htmlEntities(a) };
 		
 					$.ajax({
 		
@@ -121,14 +121,23 @@ function read(a)
 						success: function(data){
 
 							if(data.success == true){
-                             alert("You have successfully logged in!");
-							 self.location.replace('home.php');
-							} else {
-                             alert("The credentials not match!");
-                             self.location.replace('index.php');
+                                htmlResult = '<h3>' + data.message + '</h3>';
+                                htmlResult += '<ul><li><strong>Nama</strong> :'+data.detail.nama+'</li>';
+                                htmlResult += '<li><strong>Tgl Daftar</strong> :'+data.detail.tanggal_daftar+'</li></ul>';
+
+                                var longList = document.getElementById("absensi").innerHTML;
+                                longList += '<tr><td>'+ data.detail.nama+'</td><td>'+ data.detail.tanggal_daftar+'</td></tr>';
+                                document.getElementById("absensi").innerHTML = longList;
+                            } else {
+                                htmlResult = '<h3>' + data.message + '</h3>';
                             }
-							
-							setwebcam();
+                            
+                            document.getElementById('member-profile').innerHTML = htmlResult;
+
+							setTimeout(function() {
+                             document.getElementById('member-profile').innerHTML = "attempting another scan...";
+							 setwebcam();
+                            }, 5000);
 					
 				  
 						} ,error: function(xhr, status, error) {

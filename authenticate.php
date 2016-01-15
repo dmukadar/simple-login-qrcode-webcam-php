@@ -1,22 +1,23 @@
 <?php 
+include "datasource.php";
 
-if( !session_id() )
-{
-    session_start();
-}
+$id_peserta = @$_POST['id'];
+$response= array(
+	'success'=>false, 
+	'message'=>'Tidak terdaftar'
+);
 
-	if(isset($_POST['send'])){
+if(isset($_POST['send'])){
 
-		$arr= array();
-
-		if($_POST['credential'] == 'momo'){
-			$_SESSION['logged_in'] = true;
-			$arr['success'] = true;
-		} else {
-			$arr['success'] = false;
-		}
-
-		echo json_encode($arr);
+	$row = searchMember($id_peserta);
+	if(isset($row)) {
+		$response = array(
+			'success' => true,
+			'message' => 'Absensi diterima',
+			'detail'  => $row,
+		);
 	}
 
-?>
+}
+
+echo json_encode($response);

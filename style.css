@@ -13,6 +13,46 @@
 		height:240px;
 	}
 
+	h1, h2, #member-profile {
+		text-align: center;
+	}
+
+	#title {
+		display: inline;
+	}
+	#logo {
+		display: inline;
+		float: left;
+	}
+	
+	ul li {
+		list-style-type: none;
+	}
+
+	table.scanned {
+		font-family: verdana,arial,sans-serif;
+		font-size:11px;
+		color:#333333;
+		border-width: 1px;
+		border-color: #666666;
+		border-collapse: collapse;
+		width: 600px;
+	}
+	table.scanned th {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #dedede;
+	}
+	table.scanned td {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #ffffff;
+	}
+
 	@media screen and (max-width: 480px){
 		
 		#outdiv{
